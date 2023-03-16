@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>TODO list
+    <a class="btn btn-primary float-end" href="{% url 'todo-app:task-create' %}">Add task</a>
+  </h1>
+  <br>
+
+  {% for task in task_list %}
+    <p><strong>{{ task.caption }}</strong>
+      {% if task.completed %}
+        <span class="text-success"><strong>Done</strong></span>
+        <a class="btn btn-secondary float-end" href="{% url 'todo-app:task-process' pk=task.id %}">Undo</a>
+      {% else %}
+        <span class="text-danger"><strong>Not done</strong></span>
+        <a class="btn btn-success float-end" href="{% url 'todo-app:task-process' pk=task.id %}">Complete</a>
+      {% endif %}
+    </p>
+    <p>Created {{ task.created }}
+      {% if task.deadline %}
+        <span class="text-danger">Deadline: {{ task.deadline }}</span>
+      {% endif %}
+    </p>
+    <p class="text-secondary">Tags:
+      {% for tag in task.tags.all %}
+        {{ tag.name }}
+      {% endfor %}
+
+      <a class="text-primary text-decoration-none" href="{% url 'todo-app:task-update' pk=task.id %}">Update</a>
+      <a class="text-primary text-decoration-none" href="{% url 'todo-app:task-delete' pk=task.id %}">Delete</a>
+    </p>
+    <br>
+  {% empty %}
+    <p>You have no tasks yet</p>
+  {% endfor %}
+
+{% endblock %}

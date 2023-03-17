@@ -10,10 +10,18 @@
     <p><strong>{{ task.caption }}</strong>
       {% if task.completed %}
         <span class="text-success"><strong>Done</strong></span>
-        <a class="btn btn-secondary float-end" href="{% url 'todo-app:task-process' pk=task.id %}">Undo</a>
+        <form action="{% url 'todo-app:task-process' task.id %}" method="post">
+          {% csrf_token %}
+          <input type="hidden" name="completed" value="False">
+          <button class="btn btn-secondary float-end" type="submit">Undo</button>
+        </form>
       {% else %}
         <span class="text-danger"><strong>Not done</strong></span>
-        <a class="btn btn-success float-end" href="{% url 'todo-app:task-process' pk=task.id %}">Complete</a>
+        <form action="{% url 'todo-app:task-process' task.id %}" method="post">
+          {% csrf_token %}
+          <input type="hidden" name="completed" value="True">
+          <button class="btn btn-success float-end" type="submit">Complete</button>
+        </form>
       {% endif %}
     </p>
     <p>Created {{ task.created }}

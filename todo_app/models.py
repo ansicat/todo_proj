@@ -6,7 +6,7 @@ class Task(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     deadline = models.DateTimeField(blank=True, null=True)
     completed = models.BooleanField(default=False)
-    tags = models.ManyToManyField("Tag", related_name="tasks")
+    tags = models.ManyToManyField("Tag", blank=True, related_name="tasks")
 
     def __str__(self):
         return self.caption

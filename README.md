@@ -6,11 +6,11 @@ Use `.env.sample` as example and create file `.env` with your settings
 ```
 git clone https://github.com/ansicat/todo_proj.git
 cd todo-proj
-python -m venv venv
+python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
-python manage.py migrate
-python manage.py runserver
+python3 manage.py migrate
+python3 manage.py runserver
 ```
 
 ## Features
